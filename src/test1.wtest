@@ -1,0 +1,61 @@
+import vendedores.*
+import ciudad.*
+
+describe "test comercio corresponsal" {
+
+	var chivilcoy = new Ciudad()
+	var bragado = new Ciudad()
+	var lobos = new Ciudad()
+	var pergamino = new Ciudad()
+	var zarate = new Ciudad()
+	var buenos_aires = new Provincia()
+	var rosario = new Ciudad()
+	var rafaela = new Ciudad()
+	var amstrong = new Ciudad()
+	var santa_fe = new Provincia()
+	var san_francisco = new Ciudad()
+	var cordoba = new Provincia()
+	var diamante = new Ciudad()
+	var entre_rios = new Provincia()
+	var iorio = new ComercioCorresponsal()
+
+	fixture {
+		chivilcoy.provincia(buenos_aires)
+		bragado.provincia(buenos_aires)
+		lobos.provincia(buenos_aires)
+		pergamino.provincia(buenos_aires)
+		zarate.provincia(buenos_aires)
+		rosario.provincia(santa_fe)
+		rafaela.provincia(santa_fe)
+		amstrong.provincia(santa_fe)
+		san_francisco.provincia(cordoba)
+		diamante.provincia(entre_rios)
+	}
+
+	test "buenos aires" {
+		iorio.agregarSucursal(chivilcoy)
+		iorio.agregarSucursal(bragado)
+		iorio.agregarSucursal(lobos)
+		iorio.agregarSucursal(pergamino)
+		iorio.agregarSucursal(zarate)
+		assert.that(iorio.esInfluyente())
+	}
+
+	test"otros" {
+		iorio.agregarSucursal(rosario)
+		iorio.agregarSucursal(rafaela)
+		iorio.agregarSucursal(san_francisco)
+		iorio.agregarSucursal(diamante)
+		assert.that(iorio.esInfluyente())
+	}
+
+	test"ultimo" {
+		iorio.agregarSucursal(rosario)
+		iorio.agregarSucursal(rafaela)
+		iorio.agregarSucursal(amstrong)
+		iorio.agregarSucursal(diamante)
+		assert.notThat(iorio.esInfluyente())
+	}
+
+}
+
